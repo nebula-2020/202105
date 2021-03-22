@@ -1,16 +1,21 @@
 <template>
   <div class="title-height">
-    <div class="title-bar title-height auto-scroll">
+    <div class="title-bar title-height auto-scroll-x">
       <div class="tool-bar title-height">
         <div class="left-box tool-box">
-          <tool-bar-item text="写文章"></tool-bar-item>
+          <tool-bar-item :aniEnabled="false" :onClc="this.clc">
+            <btn text="写文章"></btn>
+          </tool-bar-item>
+          <tool-bar-item :aniEnabled="false">
+            <logo></logo>
+          </tool-bar-item>
         </div>
         <div class="right-box tool-box">
-          <tool-bar-item text="登录/注册"></tool-bar-item>
-          <tool-bar-item text="首页"></tool-bar-item>
-          <tool-bar-item text="博客"></tool-bar-item>
-          <tool-bar-item text="话题"></tool-bar-item>
-          <tool-bar-item text="消息"></tool-bar-item>
+          <tool-bar-item>登录/注册</tool-bar-item>
+          <tool-bar-item>首页</tool-bar-item>
+          <tool-bar-item>博客</tool-bar-item>
+          <tool-bar-item>话题</tool-bar-item>
+          <tool-bar-item>消息</tool-bar-item>
         </div>
       </div>
     </div>
@@ -19,18 +24,27 @@
 
 <script>
 import ToolBarItem from "./ToolBarItem.vue";
+import Btn from "./Button.vue";
+import Logo from "./Logo.vue";
 export default {
   name: "ToolBar",
   components: {
     ToolBarItem,
+    Btn,
+    Logo,
+  },
+  methods: {
+    clc() {
+      console.log("debug");
+    },
   },
 };
 </script>
 
 <style scoped>
 * {
+  user-select: none;
   white-space: nowrap;
-  overflow-y: hidden;
 }
 .title-height {
   height: 3em;
@@ -43,7 +57,8 @@ export default {
   top: 0;
   width: 100%;
 }
-.auto-scroll {
+.auto-scroll-x {
+  overflow-y: hidden;
   overflow-x: auto;
 }
 .tool-bar {
@@ -57,10 +72,17 @@ export default {
   max-width: 800px;
   position: absolute;
   bottom: 0;
-  overflow-x: hidden;
+  overflow-y: visible;
+  height: 0;
+}
+.right-box > * {
+  margin: 0 4% 0 0;
+}
+.left-box > * {
+  margin: 0 0 0 4%;
 }
 .tool-box > * {
-  margin: 0 4% 0 0;
+  transform: translateY(-100%);
 }
 .right-box {
   min-width: 300px;

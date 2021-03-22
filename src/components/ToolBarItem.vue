@@ -1,7 +1,10 @@
 <template>
   <div class="container">
-    <div class="text-box">{{ text }}</div>
-    <div class="underline underline-hover"></div>
+    <div @click="clc"><slot></slot></div>
+    <div
+      class="underline"
+      :class="{ 'underline-hover': this.aniEnabled }"
+    ></div>
   </div>
 </template>
 
@@ -9,9 +12,18 @@
 export default {
   name: "ToolBarItem",
   props: {
-    text: {
-      type: String,
-      default: "缺失值",
+    aniEnabled: {
+      type: Boolean,
+      default: true,
+    },
+    onClc: {
+      type: Function,
+      default: function () {},
+    },
+  },
+  methods: {
+    clc(e) {
+      this.onClc(e);
     },
   },
 };
@@ -38,7 +50,7 @@ div {
   display: block;
   height: 0.2em;
   max-height: 15px;
-  background-color: var(--main-fore-color);
+  background-color: var(--main-bg-color);
 }
 
 .underline-hover {

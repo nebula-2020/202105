@@ -1,5 +1,6 @@
 :root{
-    --main-fore-color:#96f;
+    --main-bg-color:#96f;
+    --main-fore-color:#fff;
     
     --dark-highlight-color:#fff;
     --dark-fore-color:#ccc;

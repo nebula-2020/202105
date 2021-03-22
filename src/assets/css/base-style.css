@@ -35,7 +35,7 @@ html, body, header, section, footer, div, ul, ol, li, img, a, span, em, del, leg
 * {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    -webkit-user-select: none;
+    user-select: none;
     -webkit-tap-highlight-color: transparent;
     outline: none;
 }
