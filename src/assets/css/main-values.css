@@ -2,4 +2,8 @@
     --main-bg-color:#96f;
     --main-fore-color:#fff;
     --pad-width:768px;
+    
+    --title-min-height:30px;
+    --title-height:3em;
+    --title-max-height:100px;
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="title-height">
-    <div class="title-bar title-height auto-scroll-x">
+    <div class="title-bar title-height">
       <div ref="toolBar" class="tool-bar title-height">
         <div class="left-box tool-box">
           <tool-bar-item :aniEnabled="false" :onClc="this.clc">
@@ -44,7 +44,9 @@ export default {
     Btn,
     Logo,
   },
-  created() {},
+  created() {
+    this.isMobile = Common.isMobileScreen();
+  },
   mounted() {
     window.onresize = () => {
       return (() => {
@@ -67,8 +69,8 @@ export default {
   white-space: nowrap;
 }
 .title-height {
-  height: 3em;
-  max-height: 100px;
+  height: var(--title-height);
+  max-height: var(--title-max-height);
 }
 .title-bar {
   background: var(--dark-bg-color);
@@ -76,10 +78,7 @@ export default {
   position: fixed;
   top: 0;
   width: 100%;
-}
-.auto-scroll-x {
-  overflow-y: hidden;
-  overflow-x: auto;
+  z-index: 2147483647;
 }
 .tool-bar {
   width: 100%;

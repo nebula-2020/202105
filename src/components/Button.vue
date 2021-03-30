@@ -28,6 +28,8 @@ export default {
 }
 .container {
   position: relative;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .btn {
   padding: 0;

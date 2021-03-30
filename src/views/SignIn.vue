@@ -1,32 +1,54 @@
 <template>
-  <div>
-    <div class="form">
+  <div class="container">
+    <div :class="`${this.isMobile ? 'mobile-form' : 'form'}`">
       <div class="line">
-        <input type="text" placeholder="账号/手机号" />
+        <input type="text" placeholder="请输入 账号/手机号" />
       </div>
       <div class="line">
-        <input type="password" placeholder="密码" />
+        <input type="password" placeholder="请输入 密码" />
       </div>
-
-      <router-link :to="{ path: '/SignUp' }">
-        <div class="to-sign-up">没有账号?</div>
-      </router-link>
-      <div class="line"><btn>登录</btn></div>
+      <link-label
+        class="float-left"
+        :text="'没有账号?'"
+        :routerLink="{ path: '/SignUp' }"
+      />
+      <div class="line"><btn :text="'登录'" /></div>
     </div>
   </div>
 </template>
 
 <script>
 import Btn from "../components/Button.vue";
+import LinkLabel from "../components/LinkLabel.vue";
+import Common from "../js";
 export default {
   name: "SignIn",
   components: {
     Btn,
+    LinkLabel,
+  },
+  data() {
+    return {
+      isMobile: false,
+    };
+  },
+  created() {
+    this.isMobile = Common.isMobileScreen();
+  },
+  mounted() {
+    window.onresize = () => {
+      return (() => {
+        this.isMobile = Common.isMobileScreen();
+      })();
+    };
   },
 };
 </script>
 
 <style scoped>
+.container {
+  overflow: hidden;
+}
 .form {
   width: 50vmin;
   height: 50vmin;
@@ -42,28 +64,23 @@ export default {
   padding: 2em;
   text-align: right;
 }
+.mobile-form {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: var(--light-bg-color);
+  padding: 2em;
+  text-align: right;
+}
 .line {
   margin: 0.5em 0;
 }
 input {
-  font-size: inherit;
-  padding: 0.25em;
-  border-radius: 0.25em;
   width: 100%;
   background-color: var(--light-input-bg-color);
   color: var(--light-fore-color);
 }
-.to-sign-up {
-  padding: 0.5em 0 0 0;
+.float-left {
   float: left;
-  font-size: 0.75em;
-  color: var(--main-bg-color);
-  opacity: 0.5;
-}
-.to-sign-up:hover {
-  opacity: 0.75;
-}
-.to-sign-up:active {
-  opacity: 1;
 }
 </style>
