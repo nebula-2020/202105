@@ -25,6 +25,7 @@ export default {
 @import "./assets/css/main-values.css";
 @import "./assets/css/base-style.css";
 @import "./assets/css/scrollbar-style.css";
+@import "./assets/css/light-style.css";
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

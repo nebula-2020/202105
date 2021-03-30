@@ -1,6 +1,8 @@
 <template>
   <div class="container">
-    <div @click="clc"><slot></slot></div>
+    <router-link @click="clc" :to="this.routerLink">
+      <slot></slot>
+    </router-link>
     <div
       class="underline"
       :class="{ 'underline-hover': this.aniEnabled }"
@@ -16,6 +18,12 @@ export default {
       type: Boolean,
       default: true,
     },
+    routerLink: {
+      type: Object,
+      default: function () {
+        return { path: "/", query: {} };
+      },
+    },
     onClc: {
       type: Function,
       default: function () {},
@@ -30,11 +38,13 @@ export default {
 </script>
 
 <style scoped>
+* {
+  overflow: visible;
+}
 div {
   font: inherit;
   color: inherit;
 }
-
 .container {
   padding: 0 1% 5px 1%;
   text-align: center;
@@ -42,7 +52,6 @@ div {
   position: relative;
   display: inline-block;
 }
-
 .underline {
   content: "";
   position: absolute;
@@ -63,5 +72,22 @@ div {
   width: 100%;
   left: 0%;
   transition: width 0.25s ease-out, left 0.25s ease-out;
+}
+a {
+  height: 100%;
+  color: inherit;
+}
+a:link {
+  color: inherit;
+}
+a:visited {
+  color: inherit;
+}
+a:hover {
+  color: inherit;
+}
+a:active {
+  color: inherit;
+  text-shadow: 0 0 0.25em var(--main-bg-color);
 }
 </style>

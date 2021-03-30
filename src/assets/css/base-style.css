@@ -17,7 +17,7 @@ body {
     line-height: 1.5;
     font-size: 0.8rem;
     color: #505050;
-    background-color: #f8f8f8;
+    background-color: #e8e8e8;
     outline: 0;
 }
 
@@ -26,16 +26,15 @@ html, body, header, section, footer, div, ul, ol, li, img, a, span, em, del, leg
     border: 0;
     padding: 0;
     font-style: normal;
-    -webkit-user-select: text;
-    -moz-user-select: text;
-    -ms-user-select: text;
-    user-select: text;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 * {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    user-select: none;
     -webkit-tap-highlight-color: transparent;
     outline: none;
 }
@@ -60,4 +59,8 @@ html, body, header, section, footer, div, ul, ol, li, img, a, span, em, del, leg
 
 ul, li {
     list-style: none;
+}
+
+a{
+    text-decoration:none;
 }

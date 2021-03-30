@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div class="container">
+    <div class="btn"></div>
     {{ text }}
   </div>
 </template>
@@ -18,10 +19,30 @@ export default {
 
 <style scoped>
 * {
+  position: relative;
   background-color: var(--main-bg-color);
   color: var(--main-fore-color);
   border-radius: 0.25em;
   display: inline-block;
   padding: 0 1em;
+}
+.container {
+  position: relative;
+}
+.btn {
+  padding: 0;
+  left: 0;
+  top: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: var(--main-fore-color);
+  opacity: 0;
+}
+.btn:hover {
+  opacity: 0.1;
+}
+.btn:active {
+  opacity: 0.25;
 }
 </style>

@@ -1,0 +1,10 @@
+:root{
+    --dark-highlight-color:#000;
+    --dark-fore-color:#555;
+    --dark-bg-color:#fff;
+
+    --light-highlight-color:#fff;
+    --light-fore-color:#ccc;
+    --light-bg-color:#333;
+    --light-input-bg-color:#242424;
+}

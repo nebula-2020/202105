@@ -4,6 +4,7 @@ import VueRouter from 'vue-router';
 
 const Home = () => import('views/HomePage.vue');
 const SignIn = () => import('views/SignIn.vue');
+const SignUp = () => import('views/SignUp.vue');
 Vue.use(Router);
 
 const routes = [
@@ -18,6 +19,10 @@ const routes = [
     {
         path: '/signIn',
         component: SignIn,
+    },
+    {
+        path: '/signUp',
+        component: SignUp,
     },
 ];
 const router = new VueRouter({
