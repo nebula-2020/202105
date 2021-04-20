@@ -7,8 +7,16 @@ function toAliasObj(attrs) {
 }
 const PORT = 1337
 module.exports = {
+    publicPath: './',
+    assetsDir: "static",
+    outputDir: "E:/GitHub/202103/templates",
     devServer: {
-        port: PORT
+        disableHostCheck: false,
+        host: "127.0.0.1",
+        port: PORT,
+        https: false,
+        hotOnly: false,
+        proxy: null
     },
     configureWebpack: {
         resolve: {

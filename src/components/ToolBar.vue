@@ -18,7 +18,7 @@
             登录/注册
           </tool-bar-item>
           <tool-bar-item :routerLink="{ path: '/index' }">首页</tool-bar-item>
-          <tool-bar-item>博客</tool-bar-item>
+          <tool-bar-item :routerLink="{ path: '/test' }">博客</tool-bar-item>
           <tool-bar-item>话题</tool-bar-item>
           <tool-bar-item>消息</tool-bar-item>
         </div>
