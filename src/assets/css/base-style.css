@@ -73,4 +73,22 @@ input{
     border-radius: 0.25em;
     width: auto;
 }
-  
+input::-webkit-input-placeholder {
+    font-size: smaller;
+    color: rgba(128, 128, 128, 0.5);
+  }
+  input::-moz-input-placeholder {
+    font-size: smaller;
+    color: rgba(128, 128, 128, 0.5);
+  }
+  input::-ms-input-placeholder {
+    font-size: smaller;
+    color: rgba(128, 128, 128, 0.5);
+  }
+  input::-o-input-placeholder {
+    font-size: smaller;
+    color: rgba(128, 128, 128, 0.5);
+  }
+.widget-border-radius{
+border-radius: 0.1em;
+}

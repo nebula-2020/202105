@@ -1,46 +1,72 @@
 <template>
   <div class="container">
     <div :class="`${this.isMobile ? 'mobile-form' : 'form'}`">
-      <div class="line">
-        <input type="text" placeholder="请输入 手机号" />
+      <div class="flex-line">
+        <span class="dropdown"
+          ><drop-down-list :data="PP" @getVal="changePrefix"
+        /></span>
+        <input v-model="phone" type="text" placeholder="请输入 手机号" />
       </div>
       <div class="flex-line">
-        <input class="code-input" type="text" placeholder="请输入 短信验证码" />
+        <input
+          v-model="code"
+          class="code-input"
+          type="text"
+          placeholder="请输入 短信验证码"
+        />
         <span>
           <btn :text="'获取验证码'" />
         </span>
       </div>
       <div class="line">
-        <input type="password" placeholder="请输入 密码" />
+        <input
+          v-model="pwd"
+          type="password"
+          placeholder="请输入 8~20位密码 必须包含数字、字母和符号"
+        />
       </div>
       <div class="line">
-        <input type="password" placeholder="请再次输入 密码" />
+        <input v-model="pwd1" type="password" placeholder="请再次输入 密码" />
       </div>
       <link-label
         class="float-left"
         :text="'已有账号?'"
         :routerLink="{ path: '/SignIn' }"
       />
-      <div>
-        <btn :text="'注册'" />
+      <div class="flex-line">
+        <input class="hidden" readonly="true" />
+        <span>
+          <btn ref="btn" :text="btnText" @click.native="submit()" />
+        </span>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import PP from "../assets/json/phone-prefix.json";
 import Btn from "../components/Button.vue";
 import LinkLabel from "../components/LinkLabel.vue";
+import DropDownList from "../components/DropDownList.vue";
 import Common from "../js";
+var defBtnText = "注册";
 export default {
   name: "SignUp",
   components: {
     Btn,
     LinkLabel,
+    DropDownList,
   },
   data() {
     return {
       isMobile: false,
+      btnText: "注册",
+      phonePrefix: "",
+      phone: "",
+      code: "",
+      pwd1: "",
+      pwd: "",
+      PP,
     };
   },
   created() {
@@ -53,6 +79,61 @@ export default {
       })();
     };
   },
+  methods: {
+    changePrefix(v) {
+      this.phonePrefix = v;
+    },
+    submit() {
+      let phone, code, password, password1;
+      phone = this.phone;
+      password = this.pwd;
+      password1 = this.pwd1;
+      code = this.code;
+      if (!phone) {
+        this.btnText = "手机号为空";
+      } else if (!/^[0-9]{4,11}$/.test(phone)) {
+        this.btnText = "手机号有误";
+      } else if (!password || !password1) {
+        this.btnText = "密码为空";
+      } else if (
+        !/^(?=.*\d)(?=.*[a-zA-Z])(?=.*[~!@#$%^&*])[\da-zA-Z~!@#$%^&*]{7,19}$/.test(
+          password
+        )
+      ) {
+        this.btnText = "密码无效";
+      } else if (!code) {
+        this.btnText = "验证码为空";
+      } else if (password !== password1) {
+        this.btnText = "密码不一致";
+      } else {
+        let data = {
+          phone: String(this.phonePrefix) + phone,
+          name: phone,
+          password: password,
+          code: code,
+        };
+        Common.request(
+          "signUp",
+          data,
+          (data) => {
+            if (data.succeed) {
+              this.$router.push("/HomePage");
+            } else {
+              this.btnText = "注册失败";
+            }
+          },
+          () => {
+            console.log("?");
+            this.btnText = "服务器异常";
+          }
+        );
+      }
+      setTimeout(() => {
+        this.btnText = defBtnText;
+        // this.$forceUpdate();
+      }, 1000);
+    },
+  },
 };
 </script>
 
@@ -60,7 +141,9 @@ export default {
 .line {
   margin: 0.5em 0;
 }
-
+.dropdown {
+  margin: 0 0.25em 0 0;
+}
 input {
   display: inline-block;
   width: 100%;
@@ -72,6 +155,7 @@ input {
   display: -moz-flex;
   display: -o-flex;
   display: flex;
+  margin: 0.5em 0;
 }
 .code-input {
   display: inline-block;
@@ -114,9 +198,15 @@ input {
 }
 .float-left {
   float: left;
+  display: inline;
+  height: auto;
 }
 .btn-box {
   display: inline-block;
   width: 30%;
+}
+.hidden {
+  opacity: 0;
+  visibility: hidden;
 }
 </style>

@@ -1,6 +1,7 @@
 <template>
   <div>
     <tab-box> </tab-box>
+    <div>{{ text }}</div>
   </div>
 </template>
 
@@ -11,6 +12,12 @@ export default {
   components: {
     TabBox,
   },
+  props: {
+    text: {
+      type: String,
+    },
+  },
+  created() {},
 };
 </script>
 

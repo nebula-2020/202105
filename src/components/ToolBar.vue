@@ -58,7 +58,6 @@ export default {
     clc() {
       console.log("debug");
     },
-    signIn() {},
   },
 };
 </script>

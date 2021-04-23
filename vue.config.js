@@ -20,7 +20,7 @@ module.exports = {
     },
     configureWebpack: {
         resolve: {
-            alias: toAliasObj(['assets', 'components', 'views'])
+            alias: toAliasObj(['assets', 'components', 'views', 'network'])
         }
     }
 }
