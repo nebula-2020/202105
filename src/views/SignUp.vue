@@ -1,43 +1,45 @@
 <template>
   <div class="container">
     <div :class="`${this.isMobile ? 'mobile-form' : 'form'}`">
-      <div class="flex-line">
-        <span class="dropdown"
-          ><drop-down-list :data="PP" @getVal="changePrefix"
-        /></span>
-        <input v-model="phone" type="text" placeholder="请输入 手机号" />
-      </div>
-      <div class="flex-line">
-        <input
-          v-model="code"
-          class="code-input"
-          type="text"
-          placeholder="请输入 短信验证码"
+      <div class="form-inner">
+        <div class="flex-line">
+          <span class="dropdown"
+            ><drop-down-list :data="PP" @getVal="changePrefix"
+          /></span>
+          <input v-model="phone" type="text" placeholder="请输入 手机号" />
+        </div>
+        <div class="flex-line">
+          <input
+            v-model="code"
+            class="code-input"
+            type="text"
+            placeholder="请输入 短信验证码"
+          />
+          <span>
+            <btn :text="'获取验证码'" />
+          </span>
+        </div>
+        <div class="line">
+          <input
+            v-model="pwd"
+            type="password"
+            placeholder="请输入 8~20位密码 必须包含数字、字母和符号"
+          />
+        </div>
+        <div class="line">
+          <input v-model="pwd1" type="password" placeholder="请再次输入 密码" />
+        </div>
+        <link-label
+          class="float-left"
+          :text="'已有账号?'"
+          :routerLink="{ path: '/SignIn' }"
         />
-        <span>
-          <btn :text="'获取验证码'" />
-        </span>
-      </div>
-      <div class="line">
-        <input
-          v-model="pwd"
-          type="password"
-          placeholder="请输入 8~20位密码 必须包含数字、字母和符号"
-        />
-      </div>
-      <div class="line">
-        <input v-model="pwd1" type="password" placeholder="请再次输入 密码" />
-      </div>
-      <link-label
-        class="float-left"
-        :text="'已有账号?'"
-        :routerLink="{ path: '/SignIn' }"
-      />
-      <div class="flex-line">
-        <input class="hidden" readonly="true" />
-        <span>
-          <btn ref="btn" :text="btnText" @click.native="submit()" />
-        </span>
+        <div class="flex-line">
+          <input class="hidden" readonly="true" />
+          <span>
+            <btn ref="btn" :text="btnText" @click.native="submit()" />
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -60,7 +62,7 @@ export default {
   data() {
     return {
       isMobile: false,
-      btnText: "注册",
+      btnText: defBtnText,
       phonePrefix: "",
       phone: "",
       code: "",
@@ -123,7 +125,6 @@ export default {
             }
           },
           () => {
-            console.log("?");
             this.btnText = "服务器异常";
           }
         );
@@ -182,6 +183,13 @@ input {
   background-color: var(--light-bg-color);
   height: 100%;
   text-align: right;
+}
+.form-inner {
+  margin-left: 50%;
+  transform: translate(-50%, 0);
+  max-width: 600px;
+  width: 100%;
+  text-align: inherit;
 }
 .to-sign-in {
   padding: 0.5em 0 0 0;

@@ -2,25 +2,27 @@
   <div class="container">
     <div :class="`${this.isMobile ? 'mobile-form' : 'form'}`">
       <div class="line">
-        <input type="text" placeholder="请输入 账号/手机号" />
+        <input v-model="id" type="text" placeholder="请输入 账号" />
       </div>
       <div class="line">
-        <input type="password" placeholder="请输入 密码" />
+        <input v-model="pwd" type="password" placeholder="请输入 密码" />
       </div>
       <link-label
         class="float-left"
         :text="'没有账号?'"
         :routerLink="{ path: '/SignUp' }"
       />
-      <div class="line"><btn :text="'登录'" /></div>
+      <div class="line"><btn :text="btnText" @click.native="submit()" /></div>
     </div>
   </div>
 </template>
 
 <script>
+import PP from "../assets/json/phone-prefix.json";
 import Btn from "../components/Button.vue";
 import LinkLabel from "../components/LinkLabel.vue";
 import Common from "../js";
+var defBtnText = "登录";
 export default {
   name: "SignIn",
   components: {
@@ -30,6 +32,10 @@ export default {
   data() {
     return {
       isMobile: false,
+      btnText: defBtnText,
+      id: "",
+      pwd: "",
+      PP,
     };
   },
   created() {
@@ -41,6 +47,48 @@ export default {
         this.isMobile = Common.isMobileScreen();
       })();
     };
+  },
+  methods: {
+    submit() {
+      let id, password;
+      id = this.id;
+      password = this.pwd;
+      if (!id) {
+        this.btnText = "账号为空";
+      } else if (!password) {
+        this.btnText = "密码为空";
+      } else if (
+        !/^(?=.*\d)(?=.*[a-zA-Z])(?=.*[~!@#$%^&*])[\da-zA-Z~!@#$%^&*]{7,19}$/.test(
+          password
+        )
+      ) {
+        this.btnText = "用户名或密码错误";
+      } else {
+        let data = {
+          id: id,
+          phone: "",
+          password: password,
+        };
+        Common.request(
+          "signIn",
+          data,
+          (data) => {
+            if (data.succeed) {
+              this.$router.push("/HomePage");
+            } else {
+              this.btnText = "用户名或密码错误";
+            }
+          },
+          () => {
+            this.btnText = "服务器异常";
+          }
+        );
+      }
+      setTimeout(() => {
+        this.btnText = defBtnText;
+        // this.$forceUpdate();
+      }, 1000);
+    },
   },
 };
 </script>
