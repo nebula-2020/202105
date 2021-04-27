@@ -14,8 +14,20 @@
           class="right-box tool-box"
           :style="`display:${this.isMobile ? 'none' : 'inline-block'};`"
         >
-          <tool-bar-item :routerLink="{ path: '/signIn' }">
-            登录/注册
+          <tool-bar-item
+            :aniEnabled="!userStat"
+            :routerLink="{ path: userStat ? '/me' : '/signIn' }"
+          >
+            <Avatar
+              v-show="userStat"
+              :url="url"
+              minWidth="3em"
+              width="3em"
+              height="3em"
+              border="5px solid var(--dark-bg-color)"
+              bgc="var(--dark-bg-color)"
+            ></Avatar>
+            <span v-show="!userStat">登录/注册</span>
           </tool-bar-item>
           <tool-bar-item :routerLink="{ path: '/index' }">首页</tool-bar-item>
           <tool-bar-item :routerLink="{ path: '/test' }">博客</tool-bar-item>
@@ -31,18 +43,22 @@
 import ToolBarItem from "./ToolBarItem.vue";
 import Btn from "./Button.vue";
 import Logo from "./Logo.vue";
+import Avatar from "./Avatar.vue";
 import Common from "../js";
 export default {
   name: "ToolBar",
   data() {
     return {
       isMobile: false,
+      userStat: false,
+      url: require("../assets/images/default-avatar.png"),
     };
   },
   components: {
     ToolBarItem,
     Btn,
     Logo,
+    Avatar,
   },
   created() {
     this.isMobile = Common.isMobileScreen();
