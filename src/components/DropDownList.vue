@@ -3,7 +3,7 @@
     <div ref="width" class="hide"></div>
     <div ref="bodyBox" class="container bg widget-border-radius smooth-wh">
       <div @click="open()" class="text-align-center h100">
-        <span class="input smooth-wh" ref="text">0086</span>
+        <span class="input smooth-wh" ref="text">{{ data[0].val }}</span>
       </div>
       <div ref="listBlock" class="list-block mooth-wh">
         <ul ref="list" class="smooth-wh" :class="{ listOpen: opened }">
@@ -47,7 +47,7 @@ export default {
     this.$refs.bodyBox.style.width = size.width + "px";
     // this.$refs.bodyBox.style.height = this.$refs.bodyBox.offsetHeight + "px";
     this.$refs.container.style.width = this.$refs.bodyBox.offsetWidth + "px";
-    this.$emit(EMIT_NAME, "0086");
+    this.$emit(EMIT_NAME, this.data[0].val);
   },
   methods: {
     listResize() {
