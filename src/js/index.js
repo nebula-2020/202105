@@ -28,7 +28,7 @@ export default {
     request: function (url, data, success = () => { }, error = () => { }) {
         let d = Object.prototype.toString.call(data) === '[object String]' ? JSON.stringify(data) : data;
         axios.post(url, d)
-            .then((v) => { success(v.data, v.status, v.header); })
-            .catch(() => { error(); });
-    }
+            .then((v) => { success(v.data, v.status, v.headers); })
+            .catch((err) => { error(err); });
+    },
 }

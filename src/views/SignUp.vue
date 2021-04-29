@@ -2,44 +2,32 @@
   <div class="container">
     <div :class="`${this.isMobile ? 'mobile-form' : 'form'}`">
       <div class="form-inner">
-        <div class="flex-line">
-          <span class="dropdown"
-            ><drop-down-list :data="PP" @getVal="changePrefix"
-          /></span>
+        <flex-row>
+          <drop-down-list :data="PP" @getVal="changePrefix" />
+          <span class="white-place"></span>
           <input v-model="phone" type="text" placeholder="请输入 手机号" />
-        </div>
-        <div class="flex-line">
-          <input
-            v-model="code"
-            class="code-input"
-            type="text"
-            placeholder="请输入 短信验证码"
-          />
-          <span>
-            <btn :text="'获取验证码'" />
-          </span>
-        </div>
-        <div class="line">
+        </flex-row>
+        <flex-row>
+          <input v-model="code" type="text" placeholder="请输入 短信验证码" />
+          <span class="white-place"></span>
+          <btn :minWidth="'7em'" :text="'获取验证码'" />
+        </flex-row>
+        <flex-row>
           <input
             v-model="pwd"
             type="password"
             placeholder="请输入 8~20位密码 必须包含数字、字母和符号"
           />
-        </div>
-        <div class="line">
+        </flex-row>
+        <flex-row>
           <input v-model="pwd1" type="password" placeholder="请再次输入 密码" />
-        </div>
+        </flex-row>
         <link-label
           class="float-left"
           :text="'已有账号?'"
           :routerLink="{ path: '/SignIn' }"
         />
-        <div class="flex-line">
-          <input class="hidden" readonly="true" />
-          <span>
-            <btn ref="btn" :text="btnText" @click.native="submit()" />
-          </span>
-        </div>
+        <btn ref="btn" :text="btnText" @click.native="submit()" />
       </div>
     </div>
   </div>
@@ -47,6 +35,7 @@
 
 <script>
 import PP from "../assets/json/phone-prefix.json";
+import FlexRow from "../components/FlexRow.vue";
 import Btn from "../components/Button.vue";
 import LinkLabel from "../components/LinkLabel.vue";
 import DropDownList from "../components/DropDownList.vue";
@@ -58,6 +47,7 @@ export default {
     Btn,
     LinkLabel,
     DropDownList,
+    FlexRow,
   },
   data() {
     return {
@@ -117,15 +107,19 @@ export default {
         Common.request(
           "signUp",
           data,
-          (data) => {
-            if (data.succeed) {
+          (data, status) => {
+            if (status == 200) {
               this.$router.push("/HomePage");
             } else {
               this.btnText = "注册失败";
             }
           },
-          () => {
-            this.btnText = "服务器异常";
+          (err) => {
+            if (err.response.status == 403) {
+              this.btnText = "注册失败";
+            } else {
+              this.btnText = "服务器异常";
+            }
           }
         );
       }
@@ -139,6 +133,14 @@ export default {
 </script>
 
 <style scoped>
+.white-place {
+  width: 0.5em;
+}
+.btn-container {
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
 .line {
   margin: 0.5em 0;
 }
@@ -156,6 +158,10 @@ input {
   display: -moz-flex;
   display: -o-flex;
   display: flex;
+  -o-align-items: stretch;
+  -moz-align-items: stretch;
+  -webkit-align-items: stretch;
+  align-items: stretch;
   margin: 0.5em 0;
 }
 .code-input {
@@ -213,8 +219,8 @@ input {
   display: inline-block;
   width: 30%;
 }
-.hidden {
-  opacity: 0;
-  visibility: hidden;
+.h100 {
+  display: inline-block;
+  height: 100%;
 }
 </style>

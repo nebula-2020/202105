@@ -1,18 +1,19 @@
 <template>
   <div class="container">
     <div :class="`${this.isMobile ? 'mobile-form' : 'form'}`">
-      <div class="line">
+      <flex-row>
         <input v-model="id" type="text" placeholder="请输入 账号" />
-      </div>
-      <div class="line">
+      </flex-row>
+      <flex-row>
         <input v-model="pwd" type="password" placeholder="请输入 密码" />
-      </div>
+      </flex-row>
+
       <link-label
         class="float-left"
         :text="'没有账号?'"
         :routerLink="{ path: '/SignUp' }"
       />
-      <div class="line"><btn :text="btnText" @click.native="submit()" /></div>
+      <btn :text="btnText" @click.native="submit()" />
     </div>
   </div>
 </template>
@@ -21,6 +22,7 @@
 import PP from "../assets/json/phone-prefix.json";
 import Btn from "../components/Button.vue";
 import LinkLabel from "../components/LinkLabel.vue";
+import FlexRow from "../components/FlexRow.vue";
 import Common from "../js";
 var defBtnText = "登录";
 export default {
@@ -28,6 +30,7 @@ export default {
   components: {
     Btn,
     LinkLabel,
+    FlexRow,
   },
   data() {
     return {
@@ -72,8 +75,8 @@ export default {
         Common.request(
           "signIn",
           data,
-          (data) => {
-            if (data.succeed) {
+          (data, status) => {
+            if (status == 200 && data == id) {
               this.$router.push("/HomePage");
             } else {
               this.btnText = "用户名或密码错误";
@@ -119,9 +122,6 @@ export default {
   background-color: var(--light-bg-color);
   padding: 2em;
   text-align: right;
-}
-.line {
-  margin: 0.5em 0;
 }
 input {
   width: 100%;
