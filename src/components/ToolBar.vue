@@ -39,6 +39,7 @@
 </template>
 
 <script>
+const COOKEY = "index";
 import ToolBarItem from "./ToolBarItem.vue";
 import Btn from "./Button.vue";
 import Logo from "./Logo.vue";
@@ -60,6 +61,8 @@ export default {
   },
   created() {
     this.isMobile = Common.isMobileScreen();
+    let id = this.$cookies.get(COOKEY);
+    this.userStat = id > 0;
   },
   mounted() {
     window.onresize = () => {

@@ -5,6 +5,7 @@ import VueRouter from 'vue-router';
 const Home = () => import('views/HomePage.vue');
 const SignIn = () => import('views/SignIn.vue');
 const SignUp = () => import('views/SignUp.vue');
+const UserCenter = () => import('views/UserCenter.vue');
 Vue.use(Router);
 
 const routes = [
@@ -23,6 +24,10 @@ const routes = [
     {
         path: '/signUp',
         component: SignUp,
+    },
+    {
+        path: '/me',
+        component: UserCenter,
     },
 ];
 const router = new VueRouter({
