@@ -1,6 +1,13 @@
 <template>
   <div ref="container" class="smooth-wh h100 bg">
     <div ref="width" class="hide"></div>
+    <input
+      ref="height"
+      class="inputBox"
+      disabled="disabled"
+      readonly
+      unselectable="on"
+    />
     <div ref="bodyBox" class="container bg widget-border-radius smooth-wh">
       <div @click="open()" class="text-align-center h100">
         <span class="input smooth-wh" ref="text">{{ data[0].val }}</span>
@@ -45,8 +52,9 @@ export default {
     this.listWidth = size.width;
     size = Common.eleSize(this.$refs.text);
     this.$refs.bodyBox.style.width = size.width + "px";
-    // this.$refs.bodyBox.style.height = this.$refs.bodyBox.offsetHeight + "px";
-    this.$refs.container.style.width = this.$refs.bodyBox.offsetWidth + "px";
+    this.$refs.container.style.height = this.$refs.height.offsetHeight + "px";
+    this.$refs.container.style.minWidth = this.$refs.bodyBox.offsetWidth + "px";
+    this.$refs.height.parentNode.removeChild(this.$refs.height);
     this.$emit(EMIT_NAME, this.data[0].val);
   },
   methods: {
@@ -60,7 +68,7 @@ export default {
       }
       this.$refs.bodyBox.style.width = w;
       this.$refs.width.style.width = w;
-      this.$refs.container.style.width = this.$refs.width.offsetWidth + "px";
+      this.$refs.container.style.minWidth = this.$refs.width.offsetWidth + "px";
     },
     open() {
       this.opened = !this.opened;
@@ -80,9 +88,19 @@ export default {
 * {
   vertical-align: baseline;
 }
+.inputBox {
+  display: inline-block;
+  width: 0 !important;
+  min-width: none;
+  position: absolute;
+  opacity: 0;
+}
 .bg {
   background-color: var(--light-input-bg-color);
   border-radius: var(--border-radius);
+}
+.overflow-visible {
+  overflow: visible;
 }
 .container {
   position: absolute;
@@ -105,10 +123,14 @@ export default {
   width: 100%;
 }
 .smooth-wh {
-  transition: width 0.25s ease-in-out, height 0.25s ease-in-out;
-  -moz-transition: width 0.25s ease-in-out, height 0.25s ease-in-out;
-  -webkit-transition: width 0.25s ease-in-out, height 0.25s ease-in-out;
-  -o-transition: width 0.25s ease-in-out, height 0.25s ease-in-out;
+  transition: width 0.25s ease-in-out, height 0.25s ease-in-out,
+    min-width 0.25s ease-in-out, min-height 0.25s ease-in-out;
+  -moz-transition: width 0.25s ease-in-out, height 0.25s ease-in-out,
+    min-width 0.25s ease-in-out, min-height 0.25s ease-in-out;
+  -webkit-transition: width 0.25s ease-in-out, height 0.25s ease-in-out,
+    min-width 0.25s ease-in-out, min-height 0.25s ease-in-out;
+  -o-transition: width 0.25s ease-in-out, height 0.25s ease-in-out,
+    min-width 0.25s ease-in-out, min-height 0.25s ease-in-out;
 }
 ul {
   background-color: var(--light-input-bg-color);
@@ -134,6 +156,7 @@ ul {
 }
 .h100 {
   height: 100%;
+  min-height: 100%;
 }
 li {
   border-top: 0.5px solid var(--border-color);

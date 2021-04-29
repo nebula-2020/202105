@@ -1,5 +1,5 @@
 :root{
-    --main-bg-color:#96f;
+    --main-bg-color:#96c;
     --main-fore-color:#fff;
     --pad-width:768px;
     
@@ -9,4 +9,5 @@
 
     --dropdown-list-height:10rem;
     --border-radius:0.25rem;
+    --icon-scale:1.5em;
 }

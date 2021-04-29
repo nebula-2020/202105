@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" :style="{ minWidth: minWidth + ' !important' }">
     <div class="btn"></div>
     {{ text }}
   </div>
@@ -12,6 +12,10 @@ export default {
     text: {
       type: String,
       default: "确定",
+    },
+    minWidth: {
+      type: String,
+      default: "3em",
     },
   },
 };
@@ -30,6 +34,7 @@ export default {
   position: relative;
   text-overflow: ellipsis;
   white-space: nowrap;
+  text-align: center;
 }
 .btn {
   padding: 0;

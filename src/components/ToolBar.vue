@@ -20,7 +20,6 @@
           >
             <Avatar
               v-show="userStat"
-              :url="url"
               minWidth="3em"
               width="3em"
               height="3em"
@@ -51,7 +50,6 @@ export default {
     return {
       isMobile: false,
       userStat: false,
-      url: require("../assets/images/default-avatar.png"),
     };
   },
   components: {
@@ -125,20 +123,32 @@ export default {
 .left-box > * {
   margin: 0 2% 0 2%;
   transition: margin 0.25s ease-out;
+  -o-transition: margin 0.25s ease-in-out;
+  -ms-transition: margin 0.25s ease-in-out;
+  -webkit-transition: margin 0.25s ease-in-out;
 }
 .right-box > * {
   margin: 0 2% 0 2%;
   transition: margin 0.25s ease-out;
+  -o-transition: margin 0.25s ease-in-out;
+  -ms-transition: margin 0.25s ease-in-out;
+  -webkit-transition: margin 0.25s ease-in-out;
 }
 
 @media only screen and (max-width: 800px) {
   .left-box > * {
     margin: 0 !important;
     transition: margin 0.25s ease-out;
+    -o-transition: margin 0.25s ease-in-out;
+    -ms-transition: margin 0.25s ease-in-out;
+    -webkit-transition: margin 0.25s ease-in-out;
   }
   .right-box > * {
     margin: 0 !important;
     transition: margin 0.25s ease-out;
+    -o-transition: margin 0.25s ease-in-out;
+    -ms-transition: margin 0.25s ease-in-out;
+    -webkit-transition: margin 0.25s ease-in-out;
   }
 }
 

@@ -66,12 +66,18 @@ div {
   width: 0%;
   left: 50%;
   transition: width 1s ease-in, left 1s ease-in;
+  -o-transition: width 1s ease-in, left 1s ease-in;
+  -ms-transition: width 1s ease-in, left 1s ease-in;
+  -webkit-transition: width 1s ease-in, left 1s ease-in;
 }
 
 .container:hover .underline-hover {
   width: 100%;
   left: 0%;
   transition: width 0.25s ease-out, left 0.25s ease-out;
+  -o-transition: width 0.25s ease-out, left 0.25s ease-out;
+  -ms-transition: width 0.25s ease-out, left 0.25s ease-out;
+  -webkit-transition: width 0.25s ease-out, left 0.25s ease-out;
 }
 a {
   height: 100%;

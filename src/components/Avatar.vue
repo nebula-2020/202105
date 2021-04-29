@@ -1,10 +1,13 @@
 <template>
-  <div class="container" :style="{ width: minWidth, height: minHeight }">
+  <div
+    class="container"
+    :style="{ minWidth: minWidth, width: minWidth, height: minHeight }"
+  >
     <div
       class="content"
       v-bind:style="{
-        backgroundColor: bgc,
         backgroundImage: 'url(' + url + ')',
+        backgroundColor: bgc,
         border: border,
         width: width,
         height: height,
@@ -19,7 +22,7 @@ export default {
   props: {
     url: {
       type: String,
-      default: "#",
+      default: require("../assets/images/default-avatar.png"),
     },
     width: {
       type: String,
@@ -56,8 +59,11 @@ export default {
 }
 .container {
   height: 100%;
+  position: relative;
+  overflow: visible !important;
 }
 .content {
+  z-index: 2147483647;
   display: inline-block;
   min-height: 1em;
   position: absolute;
@@ -72,5 +78,16 @@ export default {
   -moz-background-size: 100% 100%;
   -ms-background-size: 100% 100%;
   -o-background-size: 100% 100%;
+  transition: transform 0.1s linear;
+  -o-transition: transform 0.1s linear;
+  -ms-transition: transform 0.1s linear;
+  -webkit-transition: transform 0.1s linear;
+}
+.content:hover {
+  transform: translate(-50%, -50%) scale(1.1, 1.1);
+  -ms-transform: translate(-50%, -50%) scale(1.1, 1.1); /* IE 9 */
+  -moz-transform: translate(-50%, -50%) scale(1.1, 1.1); /* Firefox */
+  -webkit-transform: translate(-50%, -50%) scale(1.1, 1.1); /* Safari 和 Chrome */
+  -o-transform: translate(-50%, -50%) scale(1.1, 1.1);
 }
 </style>
