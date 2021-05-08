@@ -27,6 +27,7 @@ import Common from "../js";
 var defBtnText = "登录";
 export default {
   name: "SignIn",
+  inject: ["reload"],
   components: {
     Btn,
     LinkLabel,
@@ -77,6 +78,7 @@ export default {
           data,
           (data, status) => {
             if (status == 200 && data == id) {
+              this.reload();
               this.$router.push("/HomePage");
             } else {
               this.btnText = "用户名或密码错误";

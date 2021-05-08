@@ -117,7 +117,7 @@ export default {
       "me",
       {},
       (data, status) => {
-        if (status == 200) {
+        if (status == 200 && data.id > 0) {
           this.id = data.id;
           this.phone = data.phone;
           this.name = data.name;

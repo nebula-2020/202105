@@ -50,6 +50,7 @@ export default {
   data() {
     return {
       isMobile: false,
+      id: 0,
       userStat: false,
     };
   },
@@ -61,10 +62,9 @@ export default {
   },
   created() {
     this.isMobile = Common.isMobileScreen();
-    let id = this.$cookies.get(COOKEY);
-    this.userStat = id > 0;
   },
   mounted() {
+    this.refreshUserStatus();
     window.onresize = () => {
       return (() => {
         this.isMobile = Common.isMobileScreen();
@@ -74,6 +74,10 @@ export default {
   methods: {
     clc() {
       console.log("debug");
+    },
+    refreshUserStatus() {
+      this.id = this.getCookie(COOKEY);
+      this.userStat = this.id > 0;
     },
   },
 };

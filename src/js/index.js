@@ -30,5 +30,5 @@ export default {
         axios.post(url, d)
             .then((v) => { success(v.data, v.status, v.headers); })
             .catch((err) => { error(err); });
-    },
+    }
 }
