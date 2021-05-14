@@ -104,7 +104,7 @@ export default {
           password: password,
           code: code,
         };
-        Common.request(
+        Common.post(
           "signUp",
           data,
           (data, status) => {

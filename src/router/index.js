@@ -29,6 +29,10 @@ const routes = [
         path: '/me',
         component: UserCenter,
     },
+    {
+        path: "*", // 此处需特别注意置于最底部
+        component: Home,
+    }
 ];
 const router = new VueRouter({
     routes,

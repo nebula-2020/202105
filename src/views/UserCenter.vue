@@ -113,7 +113,7 @@ export default {
   },
   created() {
     this.isMobile = Common.isMobileScreen();
-    Common.request(
+    Common.post(
       "me",
       {},
       (data, status) => {
@@ -171,7 +171,7 @@ export default {
           password: password,
           code: code,
         };
-        Common.request(
+        Common.get(
           "signUp",
           data,
           (data) => {

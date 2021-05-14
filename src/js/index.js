@@ -1,6 +1,31 @@
 import axios from 'axios';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
+const COOKIE_ID = "k";
+const COOKEY_ICON = "icon";
+function request(url, type, data, success, error) {
+    let d = Object.prototype.toString.call(data) === '[object String]' ? JSON.stringify(data) : data;
+    let fun = undefined;
+    switch (type.toLowerCase()) {
+        case 'post':
+            fun = axios.post(url, d)
+            break;
+        case 'get':
+            fun = axios.get(url, d)
+            break;
+        default:
+            fun = axios.get(url, d)
+            break;
+    }
+    fun.then((v) => { success(v.data, v.status, v.headers); })
+        .catch((err) => { error(err); });
+}
 export default {
+    getCookieIdTag: function () {
+        return COOKIE_ID;
+    },
+    getCookieIconTag: function () {
+        return COOKEY_ICON;
+    },
     eleSize: function (ele) {
         try {
             return {
@@ -25,10 +50,10 @@ export default {
     isPageOverflowY: function () {
         return document.body.scrollHeight > (window.innerHeight || document.documentElement.clientHeight);
     },
-    request: function (url, data, success = () => { }, error = () => { }) {
-        let d = Object.prototype.toString.call(data) === '[object String]' ? JSON.stringify(data) : data;
-        axios.post(url, d)
-            .then((v) => { success(v.data, v.status, v.headers); })
-            .catch((err) => { error(err); });
+    post: function (url, data = null, success = () => { }, error = () => { }) {
+        request(url, 'post', data, success, error);
+    },
+    get: function (url, data = null, success = () => { }, error = () => { }) {
+        request(url, 'get', data, success, error);
     }
 }

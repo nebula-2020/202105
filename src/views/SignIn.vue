@@ -73,7 +73,7 @@ export default {
           phone: "",
           password: password,
         };
-        Common.request(
+        Common.post(
           "signIn",
           data,
           (data, status) => {
