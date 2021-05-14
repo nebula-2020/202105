@@ -18,14 +18,17 @@
             :aniEnabled="!userStat"
             :routerLink="{ path: userStat ? '/me' : '/signIn' }"
           >
-            <Avatar
-              v-show="userStat"
-              minWidth="3em"
-              width="3em"
-              height="3em"
-              border="5px solid var(--dark-bg-color)"
-              bgc="var(--dark-bg-color)"
-            ></Avatar>
+            <div v-on:click="this.refresh">
+              <Avatar
+                :url="url"
+                v-show="userStat"
+                minWidth="3em"
+                width="3em"
+                height="3em"
+                border="5px solid var(--dark-bg-color)"
+                bgc="var(--dark-bg-color)"
+              ></Avatar>
+            </div>
             <span v-show="!userStat">登录/注册</span>
           </tool-bar-item>
           <tool-bar-item :routerLink="{ path: '/index' }">首页</tool-bar-item>
@@ -39,7 +42,6 @@
 </template>
 
 <script>
-const COOKEY = "index";
 import ToolBarItem from "./ToolBarItem.vue";
 import Btn from "./Button.vue";
 import Logo from "./Logo.vue";
@@ -50,8 +52,8 @@ export default {
   data() {
     return {
       isMobile: false,
-      id: 0,
       userStat: false,
+      url: "",
     };
   },
   components: {
@@ -62,9 +64,10 @@ export default {
   },
   created() {
     this.isMobile = Common.isMobileScreen();
+    this.refreshUserStatus();
+    this.refresh();
   },
   mounted() {
-    this.refreshUserStatus();
     window.onresize = () => {
       return (() => {
         this.isMobile = Common.isMobileScreen();
@@ -76,8 +79,31 @@ export default {
       console.log("debug");
     },
     refreshUserStatus() {
-      this.id = this.getCookie(COOKEY);
-      this.userStat = this.id > 0;
+      if (this.getCookie(Common.getCookieIdTag())) {
+        this.userStat = true;
+        Common.get(
+          "/gIcon",
+          null,
+          () => {
+            this.url = this.getCookie(Common.getCookieIconTag());
+          },
+          () => {
+            this.userStat = false;
+          }
+        );
+      } else {
+        this.userStat = false;
+      }
+    },
+    refresh() {
+      if (this.getCookie(Common.getCookieIdTag())) {
+        this.userStat = true;
+      } else {
+        this.userStat = false;
+      }
+      this.url = this.url
+        ? this.url
+        : require("../assets/images/default-avatar.png");
     },
   },
 };
