@@ -55,7 +55,7 @@
             minHeight="100%"
           />
           <span class="white-place"></span>
-          <drop-down-list :data="PP" @getVal="changePrefix" />
+          <drop-down-list :data="PP" @getVal="changePrefix" :selected="area" />
           <span class="white-place"></span>
           <input v-model="phone" type="text" placeholder="请输入 手机号" />
         </flex-row>
@@ -109,6 +109,7 @@ export default {
       name: "",
       signature: "",
       PP,
+      area: "0086",
     };
   },
   created() {
@@ -119,7 +120,9 @@ export default {
       (data, status) => {
         if (status == 200 && data.id > 0) {
           this.id = data.id;
-          this.phone = data.phone;
+          let p = data.phone;
+          this.area = p.substr(0, 4);
+          this.phone = p.substr(4);
           this.name = data.name;
           this.signature = data.signature;
         } else {
