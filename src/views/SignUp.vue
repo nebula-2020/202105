@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <div :class="`${this.isMobile ? 'mobile-form' : 'form'}`">
-      <div class="form-inner">
+    <main :data-m="this.isMobile">
+      <div class="form">
         <flex-row>
           <drop-down-list :data="PP" @getVal="changePrefix" />
           <span class="white-place"></span>
@@ -29,7 +29,7 @@
         />
         <btn ref="btn" :text="btnText" @click.native="submit()" />
       </div>
-    </div>
+    </main>
   </div>
 </template>
 
@@ -136,33 +136,11 @@ export default {
 .white-place {
   width: 0.5em;
 }
-.btn-container {
-  margin: 0;
-  padding: 0;
-  position: relative;
-}
-.line {
-  margin: 0.5em 0;
-}
-.dropdown {
-  margin: 0 0.25em 0 0;
-}
 input {
   display: inline-block;
   width: 100%;
   background-color: var(--light-input-bg-color);
   color: var(--light-fore-color);
-}
-.flex-line {
-  display: -webkit-flex;
-  display: -moz-flex;
-  display: -o-flex;
-  display: flex;
-  -o-align-items: stretch;
-  -moz-align-items: stretch;
-  -webkit-align-items: stretch;
-  align-items: stretch;
-  margin: 0.5em 0;
 }
 .code-input {
   display: inline-block;
@@ -174,23 +152,6 @@ input {
   overflow: hidden;
 }
 .form {
-  padding: 2em;
-  background-color: var(--light-bg-color);
-  width: 61.8%;
-  min-width: 450px;
-  height: 100%;
-  margin: auto;
-  text-align: right;
-}
-.mobile-form {
-  width: 100%;
-  height: 100%;
-  padding: 2em;
-  background-color: var(--light-bg-color);
-  height: 100%;
-  text-align: right;
-}
-.form-inner {
   margin-left: 50%;
   transform: translate(-50%, 0);
   max-width: 600px;
@@ -214,13 +175,5 @@ input {
   float: left;
   display: inline;
   height: auto;
-}
-.btn-box {
-  display: inline-block;
-  width: 30%;
-}
-.h100 {
-  display: inline-block;
-  height: 100%;
 }
 </style>

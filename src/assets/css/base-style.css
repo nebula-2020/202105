@@ -76,19 +76,37 @@ input{
 input::-webkit-input-placeholder {
     font-size: smaller;
     color: rgba(128, 128, 128, 0.5);
-  }
-  input::-moz-input-placeholder {
+}
+input::-moz-input-placeholder {
     font-size: smaller;
     color: rgba(128, 128, 128, 0.5);
-  }
-  input::-ms-input-placeholder {
+}
+input::-ms-input-placeholder {
     font-size: smaller;
     color: rgba(128, 128, 128, 0.5);
-  }
-  input::-o-input-placeholder {
+}
+input::-o-input-placeholder {
     font-size: smaller;
     color: rgba(128, 128, 128, 0.5);
-  }
+}
 .widget-border-radius{
-border-radius: 0.1em;
+    border-radius: 0.1em;
+}
+
+main {
+    padding: 2em;
+    background-color: var(--light-bg-color);
+    width: 61.8%;
+    min-width: 450px;
+    height: 100%;
+    margin: auto;
+    text-align: right;
+  }
+main[data-m=true] {
+    width: 100%;
+    height: 100%;
+    padding: 2em;
+    background-color: var(--light-bg-color);
+    height: 100%;
+    text-align: right;
 }
