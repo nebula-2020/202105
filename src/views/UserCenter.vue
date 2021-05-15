@@ -126,11 +126,11 @@ export default {
           this.name = data.name;
           this.signature = data.signature;
         } else {
-          this.$router.push("/HomePage");
+          this.$router.push("/SignIn");
         }
       },
       () => {
-        this.$router.push("/HomePage");
+        this.$router.push("/SignIn");
       }
     );
   },

@@ -22,7 +22,6 @@ export default {
   props: {
     url: {
       type: String,
-      default: require("../assets/images/default-avatar.png"),
     },
     width: {
       type: String,
